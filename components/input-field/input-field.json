@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "lucide-icon": "../lucide-icon/lucide-icon"
+  }
+}

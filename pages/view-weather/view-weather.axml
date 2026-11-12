@@ -1,0 +1,269 @@
+<app-background />
+<loading-spinner isLoading="{{status === 'loading' || refreshing}}" />
+
+<view class="ls-page" style="padding-top: {{topInset + 8}}px;" a:if="{{status === 'ready'}}">
+
+  <!-- Current conditions -->
+  <view class="ls-now ls-fade-up">
+    <!-- Place badge: tap anywhere on it to change location -->
+    <view class="ls-place" hover-class="ls-place--pressed" role="button" aria-label="{{i18n.weather.change_place}}" onTap="onChangePlace">
+      <view class="ls-place__pin">
+        <lucide-icon name="map-pin" size="{{18}}" color="#ffffff" />
+      </view>
+      <view class="ls-place__text">
+        <text class="ls-place__name">{{place.name}}</text>
+        <text class="ls-place__detail" a:if="{{placeDetail}}">{{placeDetail}}</text>
+      </view>
+      <view class="ls-place__dropdown">
+        <lucide-icon name="chevron-down" size="{{18}}" color="#ffffff" />
+      </view>
+    </view>
+    <text class="ls-now__greeting">{{greeting}}{{firstname ? ', ' + firstname : ''}}</text>
+
+    <view class="ls-now__temp-row">
+      <text class="ls-now__temp">{{current.temp}}</text>
+      <text class="ls-now__deg">°</text>
+    </view>
+
+    <view class="ls-now__condition">
+      <lucide-icon name="{{current.icon}}" size="{{24}}" color="{{current.iconColor}}" />
+      <text class="ls-now__label">{{current.label}}</text>
+    </view>
+
+    <text class="ls-now__meta">{{i18n.weather.high}}:{{today.max}}°   {{i18n.weather.low}}:{{today.min}}°   ·   {{i18n.weather.feels_like}} {{current.feelsLike}}°</text>
+  </view>
+
+  <!-- Detail tiles -->
+  <view class="ls-tiles ls-fade-up ls-delay-1">
+    <view class="ls-glass ls-tile">
+      <view class="ls-tile__head">
+        <lucide-icon name="droplets" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.humidity}}</text>
+      </view>
+      <view class="ls-tile__value">
+        <text>{{current.humidity}}</text><text class="ls-tile__unit">%</text>
+      </view>
+      <text class="ls-tile__meta">{{current.humidityNote}}</text>
+    </view>
+
+    <view class="ls-glass ls-tile">
+      <view class="ls-tile__head">
+        <lucide-icon name="wind" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.wind}}</text>
+      </view>
+      <view class="ls-tile__value">
+        <text>{{current.wind}}</text><text class="ls-tile__unit">km/h</text>
+      </view>
+      <view class="ls-tile__meta ls-tile__meta--row">
+        <view class="ls-compass">
+          <lucide-icon name="arrow-up" size="{{12}}" rotate="{{current.windArrow}}" />
+        </view>
+        <text>{{i18n.weather.wind_from}} {{current.windDir}}</text>
+      </view>
+    </view>
+
+    <view class="ls-glass ls-tile">
+      <view class="ls-tile__head">
+        <lucide-icon name="umbrella" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.rain_chance}}</text>
+      </view>
+      <view class="ls-tile__value">
+        <text>{{today.rain}}</text><text class="ls-tile__unit">%</text>
+      </view>
+      <view class="ls-meter">
+        <view class="ls-meter__fill" style="width: {{today.rain}}%;"></view>
+      </view>
+    </view>
+
+    <view class="ls-glass ls-tile">
+      <view class="ls-tile__head">
+        <lucide-icon name="cloud-rain" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.precipitation}}</text>
+      </view>
+      <view class="ls-tile__value">
+        <text>{{current.precipitation}}</text><text class="ls-tile__unit">mm</text>
+      </view>
+      <text class="ls-tile__meta">{{i18n.weather.precipitation_now}}</text>
+    </view>
+  </view>
+
+  <!-- Sun: compact arc; tap it to open the hour-by-hour dial -->
+  <view class="ls-glass ls-sun-card ls-fade-up ls-delay-2">
+  <block a:if="{{!dial.open}}">
+  <view class="ls-sun" hover-class="ls-sun--pressed" role="button" aria-label="{{i18n.weather.expand_sun}}" onTap="onToggleSun">
+    <view class="ls-sun__side">
+      <view class="ls-tile__head">
+        <lucide-icon name="sunrise" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.sunrise}}</text>
+      </view>
+      <text class="ls-sun__time">{{today.sunrise}}</text>
+    </view>
+
+    <view class="ls-sun__arc">
+      <!-- Clips the circles to the half above the horizon -->
+      <view class="ls-sun__sky">
+        <view class="ls-sun__path"></view>
+        <view class="ls-sun__trail" a:if="{{sun.up}}" style="transform: rotate({{sun.trail}}deg);"></view>
+      </view>
+      <view class="ls-sun__horizon"></view>
+      <!-- Daytime: the sun rides the arc (outside the clip so it is never cut off) -->
+      <view class="ls-sun__marker" a:if="{{sun.up}}" style="left: {{sun.x}}%; bottom: {{sun.y}}%;">
+        <lucide-icon name="sun" size="{{16}}" color="#a3172b" />
+      </view>
+      <!-- Night: no sun on the arc; a moon sits beneath it instead -->
+      <view class="ls-sun__night" a:else>
+        <lucide-icon name="moon" size="{{18}}" color="rgba(255, 255, 255, 0.75)" />
+      </view>
+    </view>
+
+    <view class="ls-sun__side ls-sun__side--end">
+      <view class="ls-tile__head">
+        <lucide-icon name="sunset" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+        <text class="ls-label">{{i18n.weather.sunset}}</text>
+      </view>
+      <text class="ls-sun__time">{{today.sunset}}</text>
+    </view>
+  </view>
+  <view class="ls-sun__toggle" role="button" aria-label="{{i18n.weather.expand_sun}}" onTap="onToggleSun">
+    <lucide-icon name="chevron-down" size="{{16}}" color="rgba(255, 255, 255, 0.7)" />
+  </view>
+  </block>
+
+  <!-- Expanded: drag the sun round the dial to read any hour of the day and night -->
+  <block a:else>
+    <view class="ls-dial-head" role="button" aria-label="{{i18n.weather.collapse_sun}}" onTap="onToggleSun">
+      <view class="ls-sun__side">
+        <view class="ls-tile__head">
+          <lucide-icon name="sunrise" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+          <text class="ls-label">{{i18n.weather.sunrise}}</text>
+        </view>
+        <text class="ls-sun__time">{{today.sunrise}}</text>
+      </view>
+      <view class="ls-dial-head__toggle">
+        <lucide-icon name="chevron-up" size="{{18}}" color="#ffffff" />
+      </view>
+      <view class="ls-sun__side ls-sun__side--end">
+        <view class="ls-tile__head">
+          <lucide-icon name="sunset" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+          <text class="ls-label">{{i18n.weather.sunset}}</text>
+        </view>
+        <text class="ls-sun__time">{{today.sunset}}</text>
+      </view>
+    </view>
+
+    <view class="ls-dial-readout" a:if="{{dial.sel}}">
+      <view class="ls-dial-readout__main">
+        <lucide-icon name="{{dial.sel.icon}}" size="{{32}}" color="{{dial.sel.iconColor}}" />
+        <view class="ls-dial-readout__text">
+          <text class="ls-dial-readout__when">{{dial.when}} · {{dial.sel.time}}</text>
+          <text class="ls-dial-readout__label">{{dial.sel.label}}</text>
+        </view>
+        <text class="ls-dial-readout__temp">{{dial.sel.temp}}°</text>
+      </view>
+      <view class="ls-dial-readout__stats">
+        <view class="ls-dial-pill">
+          <lucide-icon name="umbrella" size="{{14}}" color="rgba(255, 255, 255, 0.8)" />
+          <text class="ls-dial-pill__text">{{dial.sel.rain}}%</text>
+        </view>
+        <view class="ls-dial-pill">
+          <lucide-icon name="wind" size="{{14}}" color="rgba(255, 255, 255, 0.8)" />
+          <text class="ls-dial-pill__text">{{dial.sel.wind}} km/h</text>
+        </view>
+        <view class="ls-dial-pill">
+          <lucide-icon name="droplets" size="{{14}}" color="rgba(255, 255, 255, 0.8)" />
+          <text class="ls-dial-pill__text">{{dial.sel.humidity}}%</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="ls-dial {{dial.full ? 'ls-dial--full' : ''}}">
+      <view id="ls-dial-face" class="ls-dial__face">
+        <!-- Top half: daylight -->
+        <view class="ls-dial__sky">
+          <view class="ls-dial__ring"></view>
+          <view class="ls-dial__trail ls-dial__trail--day" style="transform: rotate({{dial.trailDay}}deg);"></view>
+        </view>
+        <!-- Bottom half: the night, shown once the sun passes sunset -->
+        <view class="ls-dial__ground">
+          <view class="ls-dial__ring"></view>
+          <view class="ls-dial__trail ls-dial__trail--night" style="transform: rotate({{dial.trailNight}}deg);"></view>
+        </view>
+        <view class="ls-dial__horizon"></view>
+        <!-- Full-circle layer, so % positions are of the whole circle even while only half shows -->
+        <view class="ls-dial__plane">
+          <view class="ls-dial__now" style="left: {{dial.nowPoint.x}}%; top: {{dial.nowPoint.y}}%;"></view>
+          <view class="ls-dial__marker {{dial.night ? 'ls-dial__marker--night' : ''}}" style="left: {{dial.marker.x}}%; top: {{dial.marker.y}}%;">
+            <lucide-icon name="{{dial.night ? 'moon' : 'sun'}}" size="{{18}}" color="{{dial.night ? '#6f2a80' : '#a3172b'}}" />
+          </view>
+        </view>
+      </view>
+      <!--
+        Transparent touch layer over the whole dial. It has no children, so it is
+        always the touch target: the runtime only applies disableScroll (blocks
+        page scrolling) when the touched element is the view that carries it.
+      -->
+      <view
+        class="ls-dial__touch"
+        disableScroll="{{true}}"
+        catchTouchStart="onDialTouchStart"
+        catchTouchMove="onDialTouchMove"
+        catchTouchEnd="onDialTouchEnd"
+        catchTouchCancel="onDialTouchEnd"
+      ></view>
+    </view>
+
+    <view class="ls-dial-foot">
+      <text class="ls-dial-foot__hint">{{i18n.weather.dial_hint}}</text>
+      <view class="ls-dial-foot__now" a:if="{{!dial.atNow}}" hover-class="ls-dial-foot__now--pressed" role="button" onTap="onDialNow">
+        <text>{{i18n.weather.now}}</text>
+      </view>
+    </view>
+  </block>
+  </view>
+
+  <!-- 7-day forecast -->
+  <view class="ls-glass ls-forecast ls-fade-up ls-delay-3">
+    <view class="ls-tile__head ls-card-title">
+      <lucide-icon name="calendar-days" size="{{14}}" color="rgba(255, 255, 255, 0.64)" />
+      <text class="ls-label">{{i18n.weather.forecast_title}}</text>
+    </view>
+
+    <view class="ls-day" a:for="{{forecast}}" a:key="date">
+      <text class="ls-day__name {{item.isToday ? 'ls-day__name--today' : ''}}">{{item.day}}</text>
+      <view class="ls-day__icon" aria-label="{{item.label}}">
+        <lucide-icon name="{{item.icon}}" size="{{22}}" color="{{item.iconColor}}" />
+        <text class="ls-day__rain" a:if="{{item.rain >= 20}}">{{item.rain}}%</text>
+      </view>
+      <text class="ls-day__min">{{item.min}}°</text>
+      <view class="ls-day__track">
+        <view class="ls-day__bar" style="margin-left: {{item.barLeft}}%; width: {{item.barWidth}}%;"></view>
+      </view>
+      <text class="ls-day__max">{{item.max}}°</text>
+    </view>
+  </view>
+
+  <view class="ls-refresh" hover-class="ls-refresh--pressed" role="button" aria-label="{{i18n.weather.refresh}}" onTap="onRefresh">
+    <lucide-icon name="refresh-cw" size="{{13}}" />
+    <text class="ls-refresh__text">{{i18n.weather.updated}} {{current.updated}} · Open-Meteo</text>
+  </view>
+</view>
+
+<!-- Error state -->
+<block a:if="{{status === 'error'}}">
+  <view class="ls-page ls-page--with-bar-2" style="padding-top: {{topInset + 8}}px;">
+    <view class="ls-glass ls-state ls-fade-up">
+      <view class="ls-state__icon">
+        <lucide-icon name="cloud-off" size="{{34}}" />
+      </view>
+      <text class="ls-state__title">{{i18n.general.api_error_heading}}</text>
+      <text class="ls-state__body">{{i18n.general.api_error_sub_heading}}</text>
+    </view>
+  </view>
+
+  <view class="ls-bottom-bar">
+    <app-button text="{{i18n.general.api_error_button}}" onPress="onRefresh" />
+    <view class="ls-bottom-bar__stack">
+      <app-button variant="ghost" text="{{i18n.weather.choose_another_place}}" onPress="onChangePlace" />
+    </view>
+  </view>
+</block>

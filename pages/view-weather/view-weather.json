@@ -1,0 +1,10 @@
+{
+  "transparentTitle": "auto",
+  "allowsBounceVertical": "NO",
+  "usingComponents": {
+    "app-background": "../../components/app-background/app-background",
+    "app-button": "../../components/app-button/app-button",
+    "loading-spinner": "../../components/loading-spinner/loading-spinner",
+    "lucide-icon": "../../components/lucide-icon/lucide-icon"
+  }
+}

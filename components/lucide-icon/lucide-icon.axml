@@ -1,0 +1,5 @@
+<view
+  class="lc lc-{{name}}"
+  style="width: {{size}}px; height: {{size}}px;{{color ? ' background-color: ' + color + ';' : ''}}{{rotate ? ' transform: rotate(' + rotate + 'deg);' : ''}}"
+  aria-hidden="true"
+></view>

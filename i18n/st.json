@@ -1,0 +1,18 @@
+{
+  "appName": "SSO+Language",
+  "languageCode": "st",
+  "index": {
+    "title": "Rea o Amohela ho LS weather APP",
+    "continue":"Tsoela-pele"
+
+  },
+
+  "general": {
+    "api_error_heading": "Ho na le se etsahetseng ka phoso",
+    "api_error_sub_heading": "T'soarelo, ho bonahala ho na le bothata. Leka hape ka mora nakoana.",
+    "api_error_button": "Leka hape"
+  }
+
+
+  
+}

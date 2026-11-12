@@ -1,0 +1,9 @@
+<view a:if="{{visible}}" class="ls-dialog" onTap="onClose">
+  <view class="ls-dialog__card" role="dialog" aria-label="{{title}}" catchTap="onCardTap">
+    <text class="ls-dialog__title" a:if="{{title}}">{{title}}</text>
+    <text class="ls-dialog__body">{{content}}</text>
+    <view class="ls-dialog__actions">
+      <app-button text="{{buttonText}}" onPress="onClose" />
+    </view>
+  </view>
+</view>

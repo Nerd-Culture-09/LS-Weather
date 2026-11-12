@@ -1,0 +1,223 @@
+/*
+ * LS Weather — global theme
+ * Palette sampled from the contour wallpaper (assets/imgs/bg-contour.jpg):
+ * plum #8E349B at the top, through magenta #A12E72 and rose #B62B43,
+ * down to signal red #D12D1F. Surfaces are frosted white glass so the
+ * pattern stays visible underneath; the one solid surface is the white
+ * primary button.
+ *
+ * Imported by tailwind.css, so `npm run build:css` keeps it in app.acss.
+ */
+
+page {
+  --ls-plum: #8e349b;
+  --ls-magenta: #a12e72;
+  --ls-rose: #b62b43;
+  --ls-red: #d12d1f;
+  --ls-crimson: #a3172b;
+  --ls-amber: #ffc56b;
+
+  --ls-ink: #ffffff;
+  --ls-ink-2: rgba(255, 255, 255, 0.82);
+  --ls-ink-3: rgba(255, 255, 255, 0.64);
+
+  --ls-glass: rgba(255, 255, 255, 0.14);
+  --ls-glass-strong: rgba(255, 255, 255, 0.22);
+  --ls-glass-line: rgba(255, 255, 255, 0.26);
+  --ls-hairline: rgba(255, 255, 255, 0.14);
+  --ls-shadow: 0 12px 32px rgba(70, 6, 40, 0.22);
+
+  background-color: #b12b4e;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+
+.ls-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24px 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Leaves room for the fixed action bar at the bottom */
+.ls-page--with-bar {
+  padding-bottom: 128px;
+  padding-bottom: calc(128px + env(safe-area-inset-bottom));
+}
+
+/* Room for a bar holding two stacked buttons */
+.ls-page--with-bar-2 {
+  padding-bottom: 196px;
+  padding-bottom: calc(196px + env(safe-area-inset-bottom));
+}
+
+.ls-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  padding: 20px 20px 24px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(209, 45, 31, 0) 0%, rgba(209, 45, 31, 0.88) 45%);
+}
+
+.ls-bottom-bar__stack {
+  margin-top: 12px;
+}
+
+/* ---------- Surfaces ---------- */
+
+.ls-glass {
+  background: var(--ls-glass);
+  border: 1px solid var(--ls-glass-line);
+  border-radius: 22px;
+  box-shadow: var(--ls-shadow);
+  /* Low saturation boost: higher values push the red half of the wallpaper towards orange */
+  -webkit-backdrop-filter: blur(18px) saturate(110%);
+  backdrop-filter: blur(18px) saturate(110%);
+  box-sizing: border-box;
+}
+
+.ls-chip {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ls-glass-strong);
+  border: 1px solid var(--ls-glass-line);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: var(--ls-ink);
+}
+
+/* ---------- Type ---------- */
+
+.ls-eyebrow {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--ls-ink-2);
+}
+
+.ls-display {
+  display: block;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--ls-ink);
+  text-shadow: 0 2px 18px rgba(60, 0, 50, 0.25);
+}
+
+.ls-lead {
+  display: block;
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--ls-ink-2);
+}
+
+.ls-label {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ls-ink-3);
+}
+
+.ls-card-title {
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ls-hairline);
+}
+
+/* ---------- Shared blocks ---------- */
+
+.ls-hero {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 4px 28px;
+}
+
+.ls-form {
+  padding: 20px 18px 22px;
+}
+
+/* Empty / error state card */
+.ls-state {
+  margin: auto 0;
+  padding: 36px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ls-state__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--ls-glass-strong);
+  border: 1px solid var(--ls-glass-line);
+}
+
+.ls-state__title {
+  display: block;
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.ls-state__body {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--ls-ink-2);
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes ls-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ls-fade-up {
+  animation: ls-fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.ls-delay-1 { animation-delay: 0.08s; }
+.ls-delay-2 { animation-delay: 0.16s; }
+.ls-delay-3 { animation-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-fade-up {
+    animation: none;
+  }
+}

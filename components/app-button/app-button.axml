@@ -1,0 +1,9 @@
+<view
+  class="ls-btn ls-btn--{{variant}} {{disabled ? 'ls-btn--disabled' : ''}}"
+  hover-class="{{disabled ? 'none' : 'ls-btn--pressed'}}"
+  role="button"
+  aria-label="{{text}}"
+  onTap="onTap"
+>
+  <text class="ls-btn__text">{{text}}</text>
+</view>

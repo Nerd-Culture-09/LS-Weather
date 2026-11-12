@@ -1,0 +1,5 @@
+@import "./styles/theme.acss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,14 @@
+{
+  "modes": [
+    {
+      "title": "pages/view-weather/view-weather",
+      "page": "pages/view-weather/view-weather",
+      "pageQuery": ""
+    },
+    {
+      "title": "pages/enter-third-party-no/enter-third-party-no",
+      "page": "pages/enter-third-party-no/enter-third-party-no",
+      "pageQuery": ""
+    }
+  ]
+}

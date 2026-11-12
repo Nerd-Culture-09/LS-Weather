@@ -1,0 +1,4 @@
+<view class="ls-bg" aria-hidden="true">
+  <image class="ls-bg__img" src="/assets/imgs/bg-contour.jpg" mode="aspectFill" />
+  <view class="ls-bg__veil"></view>
+</view>

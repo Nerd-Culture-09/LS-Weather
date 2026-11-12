@@ -1,0 +1,33 @@
+<app-background />
+
+<view class="ls-page ls-page--with-bar" style="padding-top: {{topInset + 28}}px;">
+  <view class="ls-hero ls-fade-up">
+    <view class="ls-brand">
+      <view class="ls-brand__mark">
+        <lucide-icon name="cloud-sun" size="{{26}}" color="#ffffff" />
+      </view>
+      <text class="ls-brand__name">{{i18n.index.brand}}</text>
+    </view>
+
+    <text class="ls-display">{{i18n.index.title}}</text>
+    <text class="ls-lead">{{i18n.index.subtitle}}</text>
+  </view>
+
+  <view class="ls-glass ls-form ls-fade-up ls-delay-1">
+    <input-field
+      label="{{i18n.index.name_label}}"
+      placeholder="{{i18n.index.name_placeholder}}"
+      inputType="text"
+      validationType="name"
+      value="{{firstname}}"
+      error="{{firstnameError}}"
+      onValueChange="onFirstnameChange"
+      onValidationError="onFirstnameValidationError"
+      onConfirm="onContinue"
+    />
+  </view>
+</view>
+
+<view class="ls-bottom-bar">
+  <app-button text="{{i18n.index.continue}}" onPress="onContinue" />
+</view>

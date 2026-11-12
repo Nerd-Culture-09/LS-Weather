@@ -1,0 +1,9 @@
+{
+  "transparentTitle": "auto",
+  "usingComponents": {
+    "app-background": "../../components/app-background/app-background",
+    "glass-dialog": "../../components/glass-dialog/glass-dialog",
+    "loading-spinner": "../../components/loading-spinner/loading-spinner",
+    "lucide-icon": "../../components/lucide-icon/lucide-icon"
+  }
+}

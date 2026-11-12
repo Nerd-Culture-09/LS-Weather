@@ -1,0 +1,60 @@
+.ls-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  box-sizing: border-box;
+  background: rgba(50, 6, 40, 0.42);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.ls-dialog__card {
+  width: 100%;
+  padding: 26px 22px 22px;
+  border-radius: 26px;
+  box-sizing: border-box;
+  background: rgba(96, 22, 92, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 24px 60px rgba(40, 0, 30, 0.45);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+  animation: ls-dialog-in 0.24s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.ls-dialog__title {
+  display: block;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ls-dialog__body {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ls-dialog__actions {
+  margin-top: 22px;
+}
+
+@keyframes ls-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

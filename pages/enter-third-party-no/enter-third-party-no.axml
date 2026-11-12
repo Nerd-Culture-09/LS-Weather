@@ -1,0 +1,57 @@
+<app-background />
+<loading-spinner isLoading="{{isLoading}}" />
+
+<block a:if="{{!apiError}}">
+  <view class="ls-page ls-page--with-bar" style="padding-top: {{topInset + 28}}px;">
+    <view class="ls-hero ls-fade-up">
+      <text class="ls-chip">{{i18n.policy.badge}}</text>
+      <text class="ls-display ls-policy__title">{{i18n.policy.title}}</text>
+      <text class="ls-lead">{{i18n.policy.subtitle}}</text>
+    </view>
+
+    <view class="ls-glass ls-form ls-fade-up ls-delay-1">
+      <input-field
+        label="{{i18n.policy.label}}"
+        placeholder="{{i18n.policy.placeholder}}"
+        inputType="number"
+        validationType="policy"
+        value="{{policyNo}}"
+        error="{{policyNoErrorField}}"
+        onValueChange="onPolicyChange"
+        onValidationError="onPolicyValidationError"
+        onConfirm="onContinue"
+      />
+    </view>
+  </view>
+
+  <view class="ls-bottom-bar">
+    <app-button text="{{i18n.index.continue}}" onPress="onContinue" />
+  </view>
+</block>
+
+<block a:else>
+  <view class="ls-page ls-page--with-bar-2" style="padding-top: {{topInset + 8}}px;">
+    <view class="ls-glass ls-state ls-fade-up">
+      <view class="ls-state__icon">
+        <lucide-icon name="triangle-alert" size="{{34}}" color="#ffd27a" />
+      </view>
+      <text class="ls-state__title">{{i18n.general.api_error_heading}}</text>
+      <text class="ls-state__body">{{i18n.general.api_error_sub_heading}}</text>
+    </view>
+  </view>
+
+  <view class="ls-bottom-bar">
+    <app-button text="{{i18n.general.api_error_button}}" onPress="onContinue" />
+    <view class="ls-bottom-bar__stack">
+      <app-button variant="ghost" text="{{i18n.general.cancel}}" onPress="handleCancel" />
+    </view>
+  </view>
+</block>
+
+<glass-dialog
+  visible="{{dialogVisible}}"
+  title="{{i18n.general.info}}"
+  content="{{errorMessage}}"
+  buttonText="{{i18n.general.ok}}"
+  onClose="handleClose"
+/>

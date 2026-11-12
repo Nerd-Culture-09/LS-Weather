@@ -1,0 +1,710 @@
+/* ---------- Current conditions ---------- */
+
+.ls-now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px 0 28px;
+  text-shadow: 0 2px 18px rgba(60, 0, 50, 0.22);
+}
+
+/* ---------- Place badge (opens the place picker) ---------- */
+
+.ls-place {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(70, 6, 40, 0.2);
+  -webkit-backdrop-filter: blur(18px) saturate(110%);
+  backdrop-filter: blur(18px) saturate(110%);
+  text-align: left;
+  text-shadow: none;
+  transition: background-color 0.15s ease;
+}
+
+.ls-place--pressed {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.ls-place__pin {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.ls-place__text {
+  flex: 1;
+  min-width: 0;
+  margin: 0 10px 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ls-place__name,
+.ls-place__detail {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ls-place__name {
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+}
+
+.ls-place__detail {
+  font-size: 13px;
+  line-height: 17px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ls-place__dropdown {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-right: 2px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ls-now__greeting {
+  display: block;
+  margin-top: 16px;
+  font-size: 17px;
+  line-height: 22px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ls-now__temp-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* offsets the degree sign so the number itself reads as centred */
+  padding-left: 30px;
+}
+
+.ls-now__temp {
+  font-size: 108px;
+  line-height: 112px;
+  font-weight: 200;
+  letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-now__deg {
+  font-size: 64px;
+  line-height: 84px;
+  font-weight: 200;
+}
+
+.ls-now__condition {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.ls-now__label {
+  margin-left: 8px;
+}
+
+.ls-now__meta {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.82);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}
+
+/* ---------- Detail tiles ---------- */
+
+.ls-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.ls-tile {
+  width: calc(50% - 6px);
+  min-height: 124px;
+  margin-bottom: 12px;
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Icon + uppercase label at the top of a card */
+.ls-tile__head {
+  display: flex;
+  align-items: center;
+}
+
+.ls-tile__head .ls-label {
+  margin-left: 6px;
+}
+
+.ls-tile__value {
+  display: flex;
+  align-items: baseline;
+  margin-top: 8px;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-tile__unit {
+  margin-left: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ls-tile__meta {
+  display: block;
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ls-tile__meta--row {
+  display: flex;
+  align-items: center;
+}
+
+.ls-compass {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.ls-meter {
+  height: 6px;
+  margin-top: auto;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ls-meter__fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #ffe3a3 0%, #ffffff 100%);
+}
+
+/* ---------- Sun card (compact arc, expands into the dial) ---------- */
+
+.ls-sun-card {
+  margin-bottom: 12px;
+}
+
+.ls-sun {
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 16px 4px;
+}
+
+.ls-sun--pressed {
+  opacity: 0.85;
+}
+
+/* Hint that the card opens */
+.ls-sun__toggle {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 8px;
+}
+
+/* Equal flexible sides keep the arc centred whatever the label widths */
+.ls-sun__side {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ls-sun__side--end {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.ls-sun__side--end .ls-tile__head {
+  justify-content: flex-end;
+}
+
+.ls-sun__time {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* rpx so the arc scales with the screen: 132px wide on a 375px phone */
+.ls-sun__arc {
+  position: relative;
+  flex-shrink: 0;
+  width: 264rpx;
+  height: 132rpx;
+  margin: 0 10px;
+}
+
+.ls-sun__sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Full circles whose centre sits on the horizon; only the top half shows */
+.ls-sun__path,
+.ls-sun__trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 264rpx;
+  height: 264rpx;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.ls-sun__path {
+  border: 1.5px dashed rgba(255, 255, 255, 0.45);
+}
+
+/*
+ * Daylight elapsed. The left + bottom borders form a half ring; at
+ * rotate(-45deg) it lies below the horizon (hidden), and each extra degree
+ * of clockwise rotation sweeps it up from the sunrise side. JS sets
+ * rotate(180 * dayProgress - 45).
+ */
+.ls-sun__trail {
+  border: 2px solid transparent;
+  border-left-color: #ffd27a;
+  border-bottom-color: #ffd27a;
+}
+
+.ls-sun__horizon {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* The sun: an opaque amber token, so the dashed path never shows through it */
+.ls-sun__marker {
+  position: absolute;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  margin-bottom: -13px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffd27a;
+  box-shadow: 0 0 0 3px rgba(255, 210, 122, 0.22), 0 4px 14px rgba(120, 30, 0, 0.3);
+}
+
+/* Night: the moon sits inside the arc, centred just above the horizon */
+.ls-sun__night {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  margin-left: -9px;
+}
+
+/* ---------- Hour-by-hour dial (expanded sun card) ---------- */
+
+.ls-dial-head {
+  display: flex;
+  align-items: flex-start;
+  padding: 18px 16px 0;
+}
+
+.ls-dial-head__toggle {
+  width: 30px;
+  height: 30px;
+  margin: 4px 10px 0;
+  flex-shrink: 0;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Readout for the hour under the marker */
+.ls-dial-readout {
+  margin: 16px 16px 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ls-dial-readout__main {
+  display: flex;
+  align-items: center;
+}
+
+.ls-dial-readout__text {
+  flex: 1;
+  min-width: 0;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ls-dial-readout__when {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-dial-readout__label {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.ls-dial-readout__temp {
+  margin-left: 8px;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-dial-readout__stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.ls-dial-pill {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  padding: 4px 10px 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ls-dial-pill__text {
+  margin-left: 5px;
+  font-size: 13px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The dial is a 220px circle. Only the top half (daylight) shows until the
+ * sun is dragged past sunset; then the face grows to the full circle and the
+ * bottom half (the night) fades in. The face's width is what JS measures.
+ */
+.ls-dial {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 26px 0 26px;
+}
+
+/* Catches every touch on the dial (see the template comment) */
+.ls-dial__touch {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  touch-action: none;
+}
+
+.ls-dial__face {
+  position: relative;
+  width: 220px;
+  height: 110px;
+  transition: height 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ls-dial--full .ls-dial__face {
+  height: 220px;
+}
+
+.ls-dial__sky,
+.ls-dial__ground {
+  position: absolute;
+  left: 0;
+  width: 220px;
+  height: 110px;
+  overflow: hidden;
+}
+
+.ls-dial__sky {
+  top: 0;
+}
+
+.ls-dial__ground {
+  top: 110px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ls-dial--full .ls-dial__ground {
+  opacity: 1;
+}
+
+.ls-dial__ring,
+.ls-dial__trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 220px;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+/* In the bottom half the circles sit one radius higher, so their lower half shows */
+.ls-dial__ground .ls-dial__ring,
+.ls-dial__ground .ls-dial__trail {
+  top: -110px;
+}
+
+.ls-dial__ring {
+  border: 1.5px dashed rgba(255, 255, 255, 0.45);
+}
+
+.ls-dial__trail {
+  border: 3px solid transparent;
+}
+
+/* Day: same half-ring sweep as the compact arc, up from the sunrise side */
+.ls-dial__trail--day {
+  border-left-color: #ffd27a;
+  border-bottom-color: #ffd27a;
+}
+
+/* Night: top + right borders, sweeping down from the sunset side */
+.ls-dial__trail--night {
+  border-top-color: #e6dcff;
+  border-right-color: #e6dcff;
+}
+
+.ls-dial__horizon {
+  position: absolute;
+  top: 110px;
+  left: -16px;
+  right: -16px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Square the size of the whole circle; marker positions are % of this.
+   Touch-transparent so its unseen lower half never blocks the footer. */
+.ls-dial__plane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+}
+
+/* Where "now" is on the ring */
+.ls-dial__now {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
+}
+
+.ls-dial__marker {
+  position: absolute;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffd27a;
+  box-shadow: 0 0 0 4px rgba(255, 210, 122, 0.24), 0 6px 16px rgba(120, 30, 0, 0.32);
+}
+
+.ls-dial__marker--night {
+  background: #f4efff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18), 0 6px 16px rgba(40, 0, 60, 0.35);
+}
+
+.ls-dial-foot {
+  display: flex;
+  align-items: center;
+  padding: 0 16px 16px;
+}
+
+.ls-dial-foot__hint {
+  flex: 1;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ls-dial-foot__now {
+  margin-left: 12px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #a3172b;
+}
+
+.ls-dial-foot__now--pressed {
+  opacity: 0.85;
+}
+
+/* ---------- 7-day forecast ---------- */
+
+.ls-forecast {
+  padding: 16px 16px 6px;
+}
+
+.ls-day {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-variant-numeric: tabular-nums;
+}
+
+.ls-day:last-child {
+  border-bottom: none;
+}
+
+.ls-day__name {
+  width: 64px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.ls-day__name--today {
+  font-weight: 700;
+}
+
+.ls-day__icon {
+  width: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ls-day__rain {
+  margin-top: 1px;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 700;
+  color: #ffe3a3;
+}
+
+.ls-day__min {
+  width: 40px;
+  text-align: right;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.ls-day__track {
+  flex: 1;
+  height: 6px;
+  margin: 0 12px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.ls-day__bar {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #ffe7b0 0%, #ffbd59 55%, #ff8a4c 100%);
+}
+
+.ls-day__max {
+  width: 36px;
+  text-align: right;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* ---------- Footer ---------- */
+
+.ls-refresh {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ls-refresh__text {
+  margin-left: 6px;
+}
+
+.ls-refresh--pressed {
+  background: rgba(255, 255, 255, 0.22);
+}

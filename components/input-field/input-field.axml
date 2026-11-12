@@ -1,0 +1,23 @@
+<view class="ls-field">
+  <text class="ls-field__label" a:if="{{label}}">{{label}}</text>
+
+  <view class="ls-field__box {{focused ? 'ls-field__box--focus' : ''}} {{(error || errorMessage) ? 'ls-field__box--error' : ''}}">
+    <input
+      class="ls-field__input"
+      value="{{internalValue}}"
+      type="{{inputType || 'text'}}"
+      placeholder="{{placeholder}}"
+      placeholder-style="color: rgba(255, 255, 255, 0.55);"
+      confirm-type="done"
+      onInput="onInput"
+      onFocus="onFocus"
+      onBlur="onBlur"
+      onConfirm="onConfirm"
+    />
+  </view>
+
+  <view class="ls-field__error" a:if="{{error || errorMessage}}" role="alert">
+    <lucide-icon name="circle-alert" size="{{16}}" color="#c4162a" />
+    <text class="ls-field__error-text">{{error || errorMessage}}</text>
+  </view>
+</view>

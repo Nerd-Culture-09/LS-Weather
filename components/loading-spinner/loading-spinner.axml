@@ -1,0 +1,3 @@
+<view a:if="{{isLoading}}" class="ls-loader" role="alert" aria-label="Loading">
+  <image class="ls-loader__gif" src="/assets/imgs/loading.gif" mode="aspectFit" />
+</view>

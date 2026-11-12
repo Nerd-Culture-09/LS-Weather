@@ -1,0 +1,55 @@
+.ls-field__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ls-field__box {
+  height: 54px;
+  padding: 0 18px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ls-field__box--focus {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.ls-field__box--error {
+  border-color: #ffd27a;
+}
+
+.ls-field__input {
+  flex: 1;
+  height: 100%;
+  font-size: 17px;
+  color: #ffffff;
+  background: transparent;
+}
+
+/* Red text would vanish on this background, so errors sit on a light pill */
+.ls-field__error {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.ls-field__error-text {
+  margin-left: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: #a3172b;
+}

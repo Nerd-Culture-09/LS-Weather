@@ -1,0 +1,15 @@
+{
+  "subPackageBuildType": "shared",
+  "pages": [
+    "pages/index/index",
+    "pages/view-weather/view-weather",
+    "pages/places/places",
+    "pages/enter-third-party-no/enter-third-party-no"
+  ],
+  "window": {
+    "defaultTitle": "",
+    "transparentTitle": "always",
+    "titleBarColor": "#8E349B",
+    "backgroundColor": "#8E349B"
+  }
+}

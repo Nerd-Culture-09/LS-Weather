@@ -1,0 +1,12 @@
+{
+  "enableAppxNg": false,
+  "component2": true,
+  "enableHMR": true,
+  "enableParallelLoader": false,
+  "uploadExclude": [
+    "tests/**",
+    "coverage/**",
+    "scripts/**",
+    "jest.config.js"
+  ]
+}

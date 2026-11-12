@@ -1,0 +1,165 @@
+<app-background />
+<loading-spinner isLoading="{{locating}}" />
+
+<view class="ls-page" style="padding-top: {{topInset + 12}}px;">
+  <view class="ls-places__head ls-fade-up">
+    <text class="ls-display">{{i18n.places.title}}</text>
+    <text class="ls-lead">{{i18n.places.subtitle}}</text>
+  </view>
+
+  <!-- Search -->
+  <view class="ls-search ls-fade-up ls-delay-1">
+    <lucide-icon name="search" size="{{18}}" color="rgba(255, 255, 255, 0.8)" />
+    <input
+      class="ls-search__input"
+      value="{{query}}"
+      placeholder="{{i18n.places.search_placeholder}}"
+      placeholder-style="color: rgba(255, 255, 255, 0.6);"
+      confirm-type="search"
+      onInput="onQueryInput"
+      onConfirm="onSearchConfirm"
+    />
+    <view class="ls-search__clear" a:if="{{query}}" role="button" aria-label="Clear" onTap="onClearQuery">
+      <lucide-icon name="x" size="{{18}}" color="rgba(255, 255, 255, 0.8)" />
+    </view>
+  </view>
+
+  <!-- Current location -->
+  <view class="ls-glass ls-row ls-row--card ls-fade-up ls-delay-1" hover-class="ls-row--pressed" role="button" onTap="onUseCurrentLocation">
+    <view class="ls-row__icon ls-row__icon--accent">
+      <lucide-icon name="locate-fixed" size="{{20}}" color="#a3172b" />
+    </view>
+    <view class="ls-row__body">
+      <text class="ls-row__title">{{i18n.places.use_current}}</text>
+      <text class="ls-row__subtitle">{{i18n.places.use_current_hint}}</text>
+    </view>
+    <lucide-icon name="chevron-right" size="{{20}}" color="rgba(255, 255, 255, 0.7)" />
+  </view>
+
+  <!-- Search results -->
+  <block a:if="{{searchActive}}">
+    <text class="ls-label ls-section-title">{{i18n.places.results}}</text>
+
+    <view class="ls-glass ls-list" a:if="{{results.length}}">
+      <view
+        class="ls-row"
+        a:for="{{results}}"
+        a:key="id"
+        hover-class="ls-row--pressed"
+        data-list="results"
+        data-index="{{index}}"
+        onTap="onSelectPlace"
+      >
+        <view class="ls-row__icon">
+          <lucide-icon name="map-pin" size="{{18}}" />
+        </view>
+        <view class="ls-row__body">
+          <text class="ls-row__title">{{item.name}}</text>
+          <text class="ls-row__subtitle" a:if="{{item.subtitle}}">{{item.subtitle}}</text>
+        </view>
+        <view
+          class="ls-row__star"
+          role="button"
+          aria-label="{{item.saved ? i18n.places.unsave : i18n.places.save}}"
+          data-list="results"
+          data-index="{{index}}"
+          catchTap="onToggleSaved"
+        >
+          <lucide-icon
+            name="{{item.saved ? 'star-filled' : 'star'}}"
+            size="{{22}}"
+            color="{{item.saved ? '#ffd27a' : 'rgba(255, 255, 255, 0.7)'}}"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="ls-glass ls-empty" a:elif="{{searchError}}">
+      <text>{{i18n.places.search_error}}</text>
+    </view>
+    <view class="ls-glass ls-empty" a:elif="{{!searching}}">
+      <text>{{i18n.places.no_results}}</text>
+    </view>
+
+    <text class="ls-attribution" a:if="{{results.length}}">{{provider === 'google' ? i18n.places.attribution_google : i18n.places.attribution_open_meteo}}</text>
+  </block>
+
+  <!-- Saved + recent -->
+  <block a:else>
+    <text class="ls-label ls-section-title">{{i18n.places.saved}}</text>
+    <view class="ls-glass ls-list" a:if="{{saved.length}}">
+      <view
+        class="ls-row"
+        a:for="{{saved}}"
+        a:key="id"
+        hover-class="ls-row--pressed"
+        data-list="saved"
+        data-index="{{index}}"
+        onTap="onSelectPlace"
+      >
+        <view class="ls-row__icon">
+          <lucide-icon name="map-pin" size="{{18}}" />
+        </view>
+        <view class="ls-row__body">
+          <text class="ls-row__title">{{item.name}}</text>
+          <text class="ls-row__subtitle" a:if="{{item.subtitle}}">{{item.subtitle}}</text>
+        </view>
+        <view
+          class="ls-row__star"
+          role="button"
+          aria-label="{{i18n.places.unsave}}"
+          data-list="saved"
+          data-index="{{index}}"
+          catchTap="onToggleSaved"
+        >
+          <lucide-icon name="star-filled" size="{{22}}" color="#ffd27a" />
+        </view>
+      </view>
+    </view>
+    <view class="ls-glass ls-empty ls-empty--hint" a:else>
+      <lucide-icon name="star" size="{{16}}" color="rgba(255, 255, 255, 0.82)" />
+      <text class="ls-empty__text">{{i18n.places.saved_hint}}</text>
+    </view>
+
+    <block a:if="{{recent.length}}">
+      <text class="ls-label ls-section-title">{{i18n.places.recent}}</text>
+      <view class="ls-glass ls-list">
+        <view
+          class="ls-row"
+          a:for="{{recent}}"
+          a:key="id"
+          hover-class="ls-row--pressed"
+          data-list="recent"
+          data-index="{{index}}"
+          onTap="onSelectPlace"
+        >
+          <view class="ls-row__icon">
+            <lucide-icon name="history" size="{{18}}" />
+          </view>
+          <view class="ls-row__body">
+            <text class="ls-row__title">{{item.name}}</text>
+            <text class="ls-row__subtitle" a:if="{{item.subtitle}}">{{item.subtitle}}</text>
+          </view>
+          <view
+            class="ls-row__star"
+            role="button"
+            aria-label="{{i18n.places.save}}"
+            data-list="recent"
+            data-index="{{index}}"
+            catchTap="onToggleSaved"
+          >
+            <lucide-icon name="star" size="{{22}}" color="rgba(255, 255, 255, 0.7)" />
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+</view>
+
+<glass-dialog
+  visible="{{locationErrorVisible}}"
+  title="{{i18n.places.location_error_title}}"
+  content="{{i18n.places.location_error_body}}"
+  buttonText="{{i18n.general.ok}}"
+  onClose="onCloseLocationError"
+/>

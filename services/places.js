@@ -126,8 +126,8 @@ export function getDeviceLocation() {
     my.getLocation({
       type: 0,
       success: (res) => resolve({
-        latitude: parseFloat(res.latitude),
-        longitude: parseFloat(res.longitude),
+        latitude: Number.parseFloat(res.latitude),
+        longitude: Number.parseFloat(res.longitude),
       }),
       fail: reject,
     });

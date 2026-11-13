@@ -1,6 +1,6 @@
 import { DEFAULT_PLACE } from '../constants/app_constants';
 
-const BASE_URL_UAT = 'http://10.20.0.171:9294/insight/miniapps/';
+const BASE_URL_UAT = 'https://10.20.0.171:9294/insight/miniapps/';
 const CURRENT_ENV = "UAT";
 
 const FORECAST_URL = 'https://api.open-meteo.com/v1/forecast';

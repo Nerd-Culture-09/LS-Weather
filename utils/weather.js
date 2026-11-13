@@ -113,11 +113,11 @@ export function timeOf(iso) {
 }
 
 function minutesOf(iso) {
-  return parseInt(iso.slice(11, 13), 10) * 60 + parseInt(iso.slice(14, 16), 10);
+  return Number.parseInt(iso.slice(11, 13), 10) * 60 + Number.parseInt(iso.slice(14, 16), 10);
 }
 
 export function greetingKey(iso) {
-  const hour = parseInt(iso.slice(11, 13), 10);
+  const hour = Number.parseInt(iso.slice(11, 13), 10);
   if (hour < 12) return 'greeting_morning';
   if (hour < 18) return 'greeting_afternoon';
   return 'greeting_evening';

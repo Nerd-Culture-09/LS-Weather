@@ -22,7 +22,7 @@ function makeSetData(instance) {
       instance.data[key] = clone(patch[key]);
     });
     if (callback) {
-      Promise.resolve().then(callback);
+      return Promise.resolve().then(callback);
     }
   };
 }

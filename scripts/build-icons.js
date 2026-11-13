@@ -42,9 +42,9 @@ function readSvg(name, options) {
 
   let svg = fs.readFileSync(file, 'utf8')
     .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/\s*class="[^"]*"/, '')
-    .replace(/\s*width="24"/, '')
-    .replace(/\s*height="24"/, '')
+    .replace(/\sclass="[^"]*"/, '')
+    .replace(/\swidth="24"/, '')
+    .replace(/\sheight="24"/, '')
     // Masks only use alpha, so any opaque colour works
     .replace(/currentColor/g, '#000');
 
